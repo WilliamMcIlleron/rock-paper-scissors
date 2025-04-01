@@ -1,3 +1,6 @@
+const choiceDiv = document.querySelector("#choices");
+const resultDiv = document.querySelector("#result");
+
 function getComputerChoice() {
     let random = Math.floor(Math.random()*3);
     if (random === 0) {
@@ -11,56 +14,57 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice(choice) {
-    choice = "";
-    choice = prompt("Rock, paper or scissors?");
-    console.log(choice);
-    return choice.toUpperCase();
-}
+let humanChoice;
+
+    
+    choiceDiv.addEventListener("click", function getHumanChoice(e) {
+        let target = e.target;
+        
+        humanChoice = target.id.toUpperCase();
+    })
+    
+
 
 let humanScore = 0;
 let computerScore = 0;
 
 function playRound() {
-    let humanChoice = getHumanChoice();
+    
     let computerChoice = getComputerChoice();
     if (humanChoice === "ROCK" && computerChoice === "SCISSORS" || humanChoice === "SCISSORS" && computerChoice === "PAPER" || humanChoice === "PAPER" && computerChoice === "ROCK") {
-        console.log("You win! " + humanChoice + " beats " +  computerChoice + ".");
         humanScore++;
+        resultDiv.innerText = "You win! " + humanChoice + " beats " +  computerChoice + "." + `\nScore: ${humanScore} - ${computerScore}`;
+        
         
     }
     else if (humanChoice === computerChoice) {
-        console.log("It's a draw!");
+        resultDiv.innerText= "It's a draw!" + `\nScore: ${humanScore} - ${computerScore}`;
       
     }
     else {
-        console.log("You lose. " + computerChoice + " beats " + humanChoice + ".");
         computerScore++;
-      
+        resultDiv.innerText= "You lose. " + computerChoice + " beats " + humanChoice + "." + `\nScore: ${humanScore} - ${computerScore}`;
     }
 }
 
+choiceDiv.addEventListener("click", () =>{
 
 function playGame() {
    
-
-    playRound();
-    playRound();
-    playRound();
-    playRound();
-    playRound();
+    choiceDiv.addEventListener('click', playRound());
+    
 
 }
+})
+    
 
-    playGame();
 
-
-    if (computerScore > humanScore) {
-        console.log("Game  over. Better luck next time\nScore: " + computerScore + " - " + humanScore);
+    if (computerScore > humanScore && (humanScore === 5 || computerScore === 5)) {
+        resultDiv.innerText = "Game  over. Better luck next time\nScore: " + computerScore + " - " + humanScore;
     } 
-    else if (computerScore < humanScore) {
-        console.log("You win!\nScore: " + humanScore + " - " + computerScore);
+    else if (computerScore < humanScore && (humanScore === 5 || computerScore === 5)) {
+        resultDiv.innerText("You win!\nScore: " + humanScore + " - " + computerScore);
     }
-    else {
-        console.log("Good game! Its a draw.\nScore: " + computerScore + " - " + humanScore)
+    else if (humanScore === 5 || computerScore === 5){
+        resultDiv.innerText("Good game! Its a draw.\nScore: " + computerScore + " - " + humanScore)
     }
