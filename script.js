@@ -13,24 +13,26 @@ function getComputerChoice() {
         return "SCISSORS";
     }
 }
-
 let humanChoice;
-
+choiceDiv.addEventListener("click", function getHumanChoice(e) {
+    let target = e.target;
     
-    choiceDiv.addEventListener("click", function getHumanChoice(e) {
-        let target = e.target;
-        
-        humanChoice = target.id.toUpperCase();
-    })
+    humanChoice = target.id.toUpperCase();
+    playRound();
+    return humanChoice;
     
+})
 
 
 let humanScore = 0;
 let computerScore = 0;
 
 function playRound() {
+
     
+
     let computerChoice = getComputerChoice();
+
     if (humanChoice === "ROCK" && computerChoice === "SCISSORS" || humanChoice === "SCISSORS" && computerChoice === "PAPER" || humanChoice === "PAPER" && computerChoice === "ROCK") {
         humanScore++;
         resultDiv.innerText = "You win! " + humanChoice + " beats " +  computerChoice + "." + `\nScore: ${humanScore} - ${computerScore}`;
@@ -41,30 +43,34 @@ function playRound() {
         resultDiv.innerText= "It's a draw!" + `\nScore: ${humanScore} - ${computerScore}`;
       
     }
+    else if (humanChoice === undefined) {
+        console.log('error')
+    }
     else {
         computerScore++;
         resultDiv.innerText= "You lose. " + computerChoice + " beats " + humanChoice + "." + `\nScore: ${humanScore} - ${computerScore}`;
     }
-}
-
-choiceDiv.addEventListener("click", () =>{
-
-function playGame() {
-   
-    choiceDiv.addEventListener('click', playRound());
-    
-
-}
-})
-    
 
 
     if (computerScore > humanScore && (humanScore === 5 || computerScore === 5)) {
         resultDiv.innerText = "Game  over. Better luck next time\nScore: " + computerScore + " - " + humanScore;
+        choiceDiv.remove();
     } 
     else if (computerScore < humanScore && (humanScore === 5 || computerScore === 5)) {
         resultDiv.innerText("You win!\nScore: " + humanScore + " - " + computerScore);
+        choiceDiv.removeEventListener('click');
     }
     else if (humanScore === 5 || computerScore === 5){
         resultDiv.innerText("Good game! Its a draw.\nScore: " + computerScore + " - " + humanScore)
+        choiceDiv.removeEventListener('click');
     }
+}
+
+
+
+
+   
+    
+    
+
+
