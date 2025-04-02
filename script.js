@@ -14,14 +14,17 @@ function getComputerChoice() {
     }
 }
 let humanChoice;
-choiceDiv.addEventListener("click", function getHumanChoice(e) {
+
+function getHumanChoice(e) {
     let target = e.target;
     
     humanChoice = target.id.toUpperCase();
     playRound();
     return humanChoice;
     
-})
+}
+
+choiceDiv.addEventListener("click", getHumanChoice)
 
 
 let humanScore = 0;
@@ -54,15 +57,16 @@ function playRound() {
 
     if (computerScore > humanScore && (humanScore === 5 || computerScore === 5)) {
         resultDiv.innerText = "Game  over. Better luck next time\nScore: " + computerScore + " - " + humanScore;
-        choiceDiv.remove();
+        choiceDiv.removeEventListener('click', getHumanChoice);
     } 
     else if (computerScore < humanScore && (humanScore === 5 || computerScore === 5)) {
         resultDiv.innerText("You win!\nScore: " + humanScore + " - " + computerScore);
-        choiceDiv.removeEventListener('click');
+        choiceDiv.removeEventListener('click', getHumanChoice);
     }
     else if (humanScore === 5 || computerScore === 5){
         resultDiv.innerText("Good game! Its a draw.\nScore: " + computerScore + " - " + humanScore)
-        choiceDiv.removeEventListener('click');
+        choiceDiv.removeEventListener('click', getHumanChoice);
+        
     }
 }
 
