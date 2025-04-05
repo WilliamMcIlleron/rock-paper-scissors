@@ -60,11 +60,11 @@ function playRound() {
         choiceDiv.removeEventListener('click', getHumanChoice);
     } 
     else if (computerScore < humanScore && (humanScore === 5 || computerScore === 5)) {
-        resultDiv.innerText("You win!\nScore: " + humanScore + " - " + computerScore);
+        resultDiv.innerText = "You win!\nScore: " + humanScore + " - " + computerScore;
         choiceDiv.removeEventListener('click', getHumanChoice);
     }
-    else if (humanScore === 5 || computerScore === 5){
-        resultDiv.innerText("Good game! Its a draw.\nScore: " + computerScore + " - " + humanScore)
+    else if (humanScore === 5 && computerScore === 5){
+        resultDiv.innerText = "Good game! Its a draw.\nScore: " + computerScore + " - " + humanScore
         choiceDiv.removeEventListener('click', getHumanChoice);
         
     }
